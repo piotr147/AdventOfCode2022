@@ -26,7 +26,7 @@ public class Day1 : Day
         Console.WriteLine();
     }
 
-    private int CalculateResult1(IEnumerable<int?> input)
+    private static int CalculateResult1(IEnumerable<int?> input)
     {
         int maxCalories = 0;
         int currentCalories = 0;
@@ -49,7 +49,7 @@ public class Day1 : Day
         return maxCalories;
     }
 
-    private int CalculateResult2(IEnumerable<int?> input)
+    private static int CalculateResult2(IEnumerable<int?> input)
     {
         const int numberOfTopElves = 3;
         IEnumerable<int> topCalories = new List<int>();
