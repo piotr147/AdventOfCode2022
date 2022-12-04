@@ -6,12 +6,12 @@ namespace AdventOfCode2022.Days
     {
         public override void PerformCalculations(IEnumerable<string> input)
         {
-            //CalculateAndLogTime(() =>
-            //{
-            //    int result = CalculateResult1(input);
-            //    Console.WriteLine();
-            //    Console.WriteLine($"Result 1: {result}");
-            //});
+            CalculateAndLogTime(() =>
+            {
+                int result = CalculateResult1(input);
+                Console.WriteLine();
+                Console.WriteLine($"Result 1: {result}");
+            });
 
             CalculateAndLogTime(() =>
             {
@@ -46,8 +46,7 @@ namespace AdventOfCode2022.Days
         }
 
         private int CalculateResult2(IEnumerable<string> input) =>
-            DivideIntoGroups(input).Select(FindBadgePriority).ToList().Sum();
-            //DivideIntoGroups(input).Select(FindBadgePriority)..Sum();
+            DivideIntoGroups(input).Select(FindBadgePriority).Sum();
 
         private IEnumerable<IEnumerable<string>> DivideIntoGroups(IEnumerable<string> input)
         {
@@ -74,7 +73,7 @@ namespace AdventOfCode2022.Days
         {
             foreach (char item in group.First())
             {
-                char? badge = XDD(group.Skip(1), item);
+                char? badge = FindBadgeRecursively(group.Skip(1), item);
 
                 if (badge.HasValue)
                 {
@@ -85,14 +84,14 @@ namespace AdventOfCode2022.Days
             throw new ArgumentException("Elves do not have common badge");
         }
 
-        private static char? XDD(IEnumerable<string> elves, char candidate)
+        private static char? FindBadgeRecursively(IEnumerable<string> elves, char candidate)
         {
             foreach (char item in elves.First())
             {
                 if (candidate == item)
                 {
                     return elves.Count() > 1
-                        ? XDD(elves.Skip(1), candidate)
+                        ? FindBadgeRecursively(elves.Skip(1), candidate)
                         : item;
                 }
             }
